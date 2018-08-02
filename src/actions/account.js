@@ -18,6 +18,16 @@ export const addUser = (user, onResolved) => ({ type: 'USER_ADD', user, onResolv
 export const addUserSucceeded = (user) => ({ type: 'USER_ADD_SUCCEEDED', user })
 export const addUserFailed = (message) => ({ type: 'USER_ADD_FAILED', message })
 
+// 发送验证码
+export const fetchForgetEmail = (user, onResolved) => ({ type: "USER_FORGET_EMAIL", user, onResolved})
+export const fetchForgetEmailSuccessed = (user) => ({ type: "USER_FORGET_EMAIL_SUCCEEDED", user })
+export const fetchForgetEmailFailed = (message) => ({ type: 'USER_FORGET_EMAIL_FAILED', message })
+
+// 校验验证码
+export const fetchForgetCaptcha = (user, onResolved) => ({ type: "USER_FORGET_CAPTCHA", user, onResolved })
+export const fetchForgetCaptchaSuccessed = (user) => ({ type: "USER_FORGET_CAPTCHA_SUCCEEDED", user })
+export const fetchForgetCaptchaFailed = (message) => ({ type: 'USER_FORGET_CAPTCHA_FAILED', message })
+
 // 更新
 export const updateUser = (user, onResolved) => ({ type: 'USER_UPDATE', user, onResolved })
 export const updateUserSucceeded = (user) => ({ type: 'USER_UPDATE_SUCCEEDED', user })

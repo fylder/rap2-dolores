@@ -9,6 +9,7 @@ import Home from './components/home/Home'
 
 import LoginForm from './components/account/LoginForm'
 import RegisterForm from './components/account/RegisterForm'
+import ForgetForm from './components/account/ForgetForm'
 import UpdateForm from './components/account/UpdateForm'
 
 const UserList = (props) => (
@@ -92,6 +93,7 @@ const Routes = ({ match, location }, { store }) => {
         {/* <Route component={Header}/> */}
         <Switch>
           <Route path='/account/register' component={RegisterForm} />
+          <Route path='/account/forget' component={ForgetForm} />
           <Route component={LoginForm} />
         </Switch>
         {/* <Footer/> */}
@@ -138,6 +140,7 @@ const Routes = ({ match, location }, { store }) => {
               <Route path='/account/users' component={UserList} />
               <Route path='/account/login' component={LoginForm} />
               <Route path='/account/register' component={RegisterForm} />
+              <Route path='/account/forget' component={ForgetForm} />
               <Route path='/account/update' component={UpdateForm} />
               <Route component={NoMatch} />
             </Switch>

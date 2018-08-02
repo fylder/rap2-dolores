@@ -13,8 +13,12 @@ export default {
         case AccountAction.logoutFailed().type:
         case AccountAction.fetchLoginInfoFailed().type:
           return {}
-        case AccountAction.loginFailed().type:
+          case AccountAction.loginFailed().type:
           return { message: action.message }
+          case AccountAction.fetchForgetCaptchaSuccessed().type:
+            return action.user && action.user.id ? action.user : {}
+          case AccountAction.fetchForgetCaptchaFailed().type:
+            return { message: action.message }
         default:
           return state
       }
@@ -99,6 +103,34 @@ export default {
       } catch (e) {
         console.error(e.message)
         yield put(AccountAction.logoutFailed(e.message))
+      }
+    },
+    * [AccountAction.fetchForgetEmail().type](action) {
+      try {
+        const result = yield call(AccountService.forgetUser, action.user)
+        if (result.isOk) {
+          yield put(AccountAction.fetchForgetEmailSuccessed(result))
+          if (action.onResolved) action.onResolved()
+        } else {
+          throw new Error(result.errMsg || '啊哈哈')
+        }
+      } catch (e) {
+        yield put(AccountAction.fetchForgetEmailFailed(e.message))
+      }
+    },
+    * [AccountAction.fetchForgetCaptcha().type](action) {
+      try {
+        const result = yield call(AccountService.forgetCaptcha, action.user)
+        if (result.isOk) {
+          yield put(AccountAction.fetchForgetCaptchaSuccessed(result.user))
+          if (action.onResolved) {
+            action.onResolved()
+          }
+        } else {
+          throw new Error(result.errMsg || '啊哈哈')
+        }
+      } catch (e) {
+        yield put(AccountAction.fetchForgetCaptchaFailed(e.message))
       }
     },
     * [AccountAction.deleteUser().type] (action) {

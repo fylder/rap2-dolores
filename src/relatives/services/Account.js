@@ -14,7 +14,7 @@ export default {
       ...CREDENTIALS,
       method: 'POST',
       body: JSON.stringify(user),
-      headers: { 'Content-Type': 'application/json' }
+      headers: HEADERS.JSON
     })
       .then(res => res.json())
       .then(json => json.data)
@@ -36,7 +36,7 @@ export default {
       ...CREDENTIALS,
       method: 'POST',
       body: JSON.stringify({ email, password, captcha }),
-      headers: { 'Content-Type': 'application/json' }
+      headers: HEADERS.JSON
     })
       .then(res => res.json())
       .then(json => json.data)
@@ -44,6 +44,28 @@ export default {
   // 用户退出
   logout () {
     return fetch(`${serve}/account/logout`, { ...CREDENTIALS })
+      .then(res => res.json())
+      .then(json => json.data)
+  },
+  // 忘记密码
+  forgetUser (user) {
+    return fetch(`${serve}/account/forget`, {
+      ...CREDENTIALS,
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: HEADERS.JSON
+    })
+      .then(res => res.json())
+      .then(json => json.data)
+  },
+  // 验证邮箱
+  forgetCaptcha (user) {
+    return fetch(`${serve}/account/captcha`, {
+      ...CREDENTIALS,
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: HEADERS.JSON
+    })
       .then(res => res.json())
       .then(json => json.data)
   },
