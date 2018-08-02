@@ -40,7 +40,7 @@ class ForgetForm extends Component {
                     <div className='form-group'>
                         <label>邮箱：</label>
                         <div className="input-group mb-3">
-                            <input type="text" className="form-control" value={this.state.email} placeholder="Email" aria-label="Email" aria-describedby="button-addon2" disabled={this.state.captchaClick} />
+                            <input type="text" className="form-control" placeholder="Email" aria-label="Email" aria-describedby="button-addon2" disabled={this.state.captchaClick} />
                             <div className="input-group-append">
                                 <button className="btn btn-primary btn-outline-secondary w120" type="button" id="button-addon2" onClick={this.handleSendEmail} disabled={this.state.captchaClick}>{this.state.countdown}</button>
                             </div>
@@ -52,7 +52,7 @@ class ForgetForm extends Component {
                         <label>验证码：</label>
                         <input value={this.state.captcha} onChange={e => this.setState({ captcha: e.target.value })} className='form-control' required />
                     </div>
-                    <button type='submit' className='btn btn-primary w140 mr20'>确定</button>
+                    <button type='submit' className='btn btn-primary w140 mr20'>确认</button>
                     {this.props.auth.message &&
                         <div className='alert alert-danger fade show' role='alert'>
                             {this.props.auth.message}
