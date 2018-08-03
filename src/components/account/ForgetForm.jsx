@@ -5,22 +5,32 @@ import { connect } from 'react-redux'
 import { fetchForgetEmail, fetchForgetCaptcha } from '../../actions/account'
 import './RegisterForm.css'
 
+// 倒数计时
+const defineNum = process.env.NODE_ENV === 'development'
+    ? () => ({
+        downNums: 5
+    })
+    : () => ({
+        downNums: 60
+    })
 // 模拟数据
 const mockUser = process.env.NODE_ENV === 'development'
     ? () => ({
         // email: '466145788@qq.com',
         email: '87590842@163.com',
         captcha: '',
+        hasSend: false,
         captchaClick: false,
         countdown: '发送验证码',
-        nums: 5
+        nums: defineNum().downNums
     })
     : () => ({
         email: '',
         captcha: '',
+        hasSend: false,
         captchaClick: false,
         countdown: '发送验证码',
-        nums: 60
+        nums: defineNum().downNums
     })
 
 // 展示组件
@@ -40,7 +50,7 @@ class ForgetForm extends Component {
                     <div className='form-group'>
                         <label>邮箱：</label>
                         <div className="input-group mb-3">
-                            <input type="text" className="form-control" placeholder="Email" aria-label="Email" aria-describedby="button-addon2" disabled={this.state.captchaClick} />
+                            <input type="text" className="form-control" placeholder="Email" aria-label="Email" aria-describedby="button-addon2" disabled={this.state.hasSend} required />
                             <div className="input-group-append">
                                 <button className="btn btn-primary btn-outline-secondary w120" type="button" id="button-addon2" onClick={this.handleSendEmail} disabled={this.state.captchaClick}>{this.state.countdown}</button>
                             </div>
@@ -52,7 +62,7 @@ class ForgetForm extends Component {
                         <label>验证码：</label>
                         <input value={this.state.captcha} onChange={e => this.setState({ captcha: e.target.value })} className='form-control' required />
                     </div>
-                    <button type='submit' className='btn btn-primary w140 mr20'>确认</button>
+                    <button type='submit' className='btn btn-primary w140 mr20' disabled={!this.state.hasSend} >确认</button>
                     {this.props.auth.message &&
                         <div className='alert alert-danger fade show' role='alert'>
                             {this.props.auth.message}
@@ -67,6 +77,7 @@ class ForgetForm extends Component {
         e.preventDefault()
         onFetchForgetEmail(this.state, () => {
             this.setState({
+                hasSend: true,
                 captchaClick: !this.state.captchaClick,
                 countdown: '重新获取(' + this.state.nums + 's)'
             })
@@ -108,7 +119,7 @@ class ForgetForm extends Component {
         this.setState({
             countdown: '重新获取验证码',
             captchaClick: false,
-            nums: this.props.nums,	// 重置时间
+            nums: defineNum().downNums,	// 重置时间
         });
     }
 }

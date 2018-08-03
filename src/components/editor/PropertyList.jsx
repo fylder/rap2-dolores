@@ -186,7 +186,7 @@ class PropertyList extends Component {
               )}
               {editable && (
                 <button type='button' className='btn btn-secondary' onClick={this.handleClickImporterButton}>
-                  <GoFileCode className='fontsize-14 color-6' /> 导入
+                  <GoFileCode className='fontsize-14' /> 导入
                 </button>
               )}
               <button type='button' className={`btn btn-secondary ${this.state.previewer && 'btn-success'}`} onClick={this.handleClickPreviewerButton}>
