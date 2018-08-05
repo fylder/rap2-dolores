@@ -56,6 +56,15 @@ export class CreateButton extends Component {
     )
   }
   handleUpdate = (e) => {
+    //更新列表数据
+    let { callback } = this.props
+    let { store } = this.context
+    if (callback) {
+      store.dispatch(replace(callback))
+    } else {
+      let uri = StoreStateRouterLocationURI(store)
+      store.dispatch(replace(uri.href()))
+    }
   }
 }
 
