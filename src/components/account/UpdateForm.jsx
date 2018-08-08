@@ -8,7 +8,7 @@ class UpdateForm extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired
   }
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       fullname: '',
@@ -16,7 +16,12 @@ class UpdateForm extends Component {
       password: ''
     }
   }
-  render () {
+
+  componentDidMount() {
+    this.passInput.focus();
+  }
+  
+  render() {
     const auth = this.props.auth
     return (
       <section className='UpdateForm'>
@@ -34,11 +39,11 @@ class UpdateForm extends Component {
           </div>
           <div className='form-group'>
             <label>密码：</label>
-            <input value={this.state.password} onChange={e => this.setState({ password: e.target.value })} type='password' className='form-control' placeholder='Password' required autoFocus='true' />
+            <input value={this.state.password} onChange={e => this.setState({ password: e.target.value })} type='password' className='form-control' placeholder='Password' required ref={(input) => { this.passInput = input; }} />
           </div>
           <div className='form-group'>
             <label>确认密码：</label>
-            <input value={this.state.passwordConfirm} onChange={e => this.setState({ passwordConfirm: e.target.value })} type='password' className='form-control' placeholder='Password' required autoFocus='true' />
+            <input value={this.state.passwordConfirm} onChange={e => this.setState({ passwordConfirm: e.target.value })} type='password' className='form-control' placeholder='Password' required />
           </div>
           <button type='submit' className='btn btn-primary w140 mr20'>提交</button>
           <a onClick={e => { e.preventDefault(); window.history.go(-1) }} >取消</a>
